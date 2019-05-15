@@ -156,7 +156,7 @@ class FAT:
         # find a free cluster for the new file
         file_cluster = self.find_free_cluster()
         if file_cluster == const.EOF:
-            raise FATException('There is not free space')
+            raise FATException('There is no free space')
         self.entries[file_cluster] = const.EOC
 
         # create file entry
@@ -185,7 +185,7 @@ class FAT:
                     if fat_number == const.EOF:
                         fat_number = self.find_free_cluster()
                         if fat_number == const.EOF:
-                            raise FATException('There is not free space')
+                            raise FATException('There is no free space')
                     self.entries[prev_number] = fat_number
 
                 fat_entry = self.entries[fat_number]

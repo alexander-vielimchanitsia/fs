@@ -28,4 +28,3 @@ def read(path_name: str):
     fat = FAT()
     file_number = fat.find_file(path_name)
     print(fat.read_file(file_number).decode())
-

@@ -35,6 +35,12 @@ class FAT:
 
         self.load()
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.save()
+
     def __create_new(self):
         self.cluster_size = const.SECTORS_PER_CLUSTER * const.SECTOR_SIZE
         self.max_clusters = int(const.TOTAL_SECTORS / const.SECTORS_PER_CLUSTER)

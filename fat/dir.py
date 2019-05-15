@@ -44,7 +44,9 @@ class DirectoryTable:
 class DirectoryEntry:
 
     FORMAT = '<8s3sBHH'
-    SIZE = 32
+    # SIZE = 32
+    # FIXME: remove it. It's here while we don't save all entry fields
+    SIZE = 16
 
     def __init__(self, **kwargs):
         self.filename = kwargs.get('filename', None)                            # type: str
@@ -78,10 +80,8 @@ class DirectoryEntry:
         return bool(self.attributes & FileAttributes.DIRECTORY)
 
     def parse(self, data: bytes):
-        # if len(data) != self.SIZE: TODO: ?
-        if len(data) > self.SIZE:
+        if len(data) != self.SIZE:
             raise FATException(f'data has to have length={self.SIZE}')
-        data = data[:16]  # FIXME: remove it. It's here while we don't save all entry fields
 
         (self.filename,
          self.extension,
